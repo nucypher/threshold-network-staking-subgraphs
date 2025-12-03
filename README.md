@@ -1,176 +1,31 @@
-= Threshold Network staking subgraph
+# Threshold Network staking subgraphs
 
-This repository contains Threshold Network staking subgraphs.
+This repository contains the code of subgraphs to track Threshold Network
+staking and TACo Application events.
 
 Subgraphs are open APIs to query data from networks like Ethereum and IPFS. The
-data is indexed by https://thegraph.com[*The Graph*] decentralized protocol.
+data is indexed by [The Graph](https://thegraph.com) decentralized protocol.
 
-By the moment, there two different subgraphs have been developed:
-- mainnet: collects the data from contracts in Ethereum Mainnet.
-- mumbai: collects the data from contracts in Polygon Mumbai.
-
-
-Development query URL for Ethereum mainnet subgraph:
-https://api.studio.thegraph.com/query/24143/main-threshold-subgraph/0.0.7
-
-Development query URL for Polygon subgraph:
-https://api.studio.thegraph.com/query/24143/threshold-staking-polygon/0.1.0
-
-Development query URL for Simple PRE Application:
-https://api.studio.thegraph.com/query/24143/simple-pre-application/version/latest
-
-== Install, build and deploy subgraph
-
-=== Prerequisites
+## Development
 
 Please make sure you have the following prerequisites installed on your machine:
 
-- https://nodejs.org[Node.js] ^18.19.0 - https://yarnpkg.com[Yarn] ^1.22.21
+- [Node.js](https://nodejs.org) ^18.19.0
+- [Yarn](https://yarnpkg.com) ^1.22.21
 
-=== Installation
+Install the root package to set up the linter and formatting tools.
 
-The Graph CLI can be installed in your computer with npm or yarn:
-
-```
-$ yarn global add @graphprotocol/graph-cli
-```
-
-Once graph-cli is installed in your system, install linting and formatting
-tools:
-
-```
-$ yarn install
+```bash
+yarn install
 ```
 
-Now, you can navigate to the subgraph of your interest and install this subgraph
-dependencies:
+This repo is organized in folders that contain each subgraph development. Each
+of them is a NPM package with its own dependencies and contains a README file.
 
+You should navigate to the subgraph's folder of interest and follow the README
+instructions.
+
+```bash
+cd subgraphs/threshold-staking/
+yarn install
 ```
-$ cd subgraphs/mainnet/
-$ yarn install
-```
-
-=== Build the subgraph
-
-```
-$ graph codegen && graph build
-```
-
-
-=== Run unit tests
-
-The recommended way to run tests is using a Docker container. It is required to
-have [Docker installed](https://docs.docker.com/desktop/).
-
-To run the tests, just execute:
-
-```
-$ yarn test
-```
-
-Tests can also be run in the local environment, more info in
-[Unit Testing Framework](https://thegraph.com/docs/en/developing/unit-testing-framework/).
-
-=== Deploy subgraph
-
-Subgraphs can be deployed in Subgraph Studio. It is required to create a new
-subgraph in https://thegraph.com/studio/[*Subgraph Studio*] and get a `deploy
-key`.
-
-Once the new subgraph is created in Subgraph Studio, you have to authenticate in
-graph-cli:
-
-```
-$ graph auth  --studio <DEPLOY KEY>
-```
-
-And then you can deploy the subgraph. Follow the CLI instructions:
-
-```
-$ graph deploy --studio
-```
-
-=== Contributing
-
-==== Lint
-
-We use https://prettier.io[Prettier] and https://eslint.org[ESLint] for linting
-code. The scripts are:
-
-```
-$ yarn format <file_path>           # Prettier
-$ yarn format:fix <file_path>
-$ yarn lint # eslint <file_path>    # ESLint
-$ yarn lint:fix <file_path>
-$ yarn format:lint:fix <file_path>  # fix files using Prettier and ESLint
-```
-
-== Test the subgraph locally
-
-=== Run local chain eg. Ganache
-
-Note that host set to `0.0.0.0` is necessary for Ganache to be accessible from
-within Docker and from other machines. By default, Ganache only binds to
-127.0.0.1, which can only be accessed from the host machine that Ganache runs
-on. If you use a ganache-cli run the node with `ganache-cli -h 0.0.0.0`. If you
-use a Ganche in GUI version go to `settings -> server` and set `HOSTNAME` to
-`0.0.0.0 - All Interfaces`. Make sure the network ID is the same as chaind ID.
-By default, ganache sets the chaind ID to `1337`. To change the network ID in
-Ganache GUI go to `settings -> server` and set `NETWORK ID` to `1337`. If you
-use a ganache-cli run a node with flag `-i 1337`.
-
-=== Deploy the Threshold Network contracts to local chain
-
-Clone https://github.com/threshold-network/solidity-contracts repo and make sure
-the `development` network config in
-https://github.com/threshold-network/solidity-contracts/blob/main/hardhat.config.ts#L42-L44[hardhat.config.ts]
-is correct for your local chain.
-
-NOTE: The deployment scripts assume the `keep-core` contract are already
-deployed to your local chain.
-
-==== Deploy the Keep Core contracts to local chain
-
-Clone https://github.com/keep-network/keep-core repo and make sure the `local`
-network config in
-https://github.com/keep-network/keep-core/blob/main/solidity-v1/truffle-config.js#L8-L12[truffle-config.js]
-is correct for your local chain.
-
-Go to root dir and run `./scripts/install.sh --network local --contracts-only`.
-
-Go to `./solidity-v1` and run `yarn link`.
-
-==== Deploy the Threshold Network contracts
-
-Install dependencies `yarn`.
-
-Link the local `keep-core` contracts by running `yarn link
-@keep-network/keep-core`.
-
-Run `./scripts/prepare-dependencies.sh`.
-
-Run `yarn deploy --network development --reset` to deploy contracts to your
-local chain.
-
-=== Update the subgraph manifest
-
-Set the correct `address` and `startBlock` for contracts in `subgraph.yaml`
-file.
-
-=== Run a local Graph Node
-
-`docker-compose up`
-
-=== Install dependencies
-
-`yarn`
-
-=== Deploy the subgraph to the local Graph Node
-
-Run code generation: `yarn codegen`.
-
-Allocate the subgraph name in the local Graph Node: `yarn create-local`.
-
-Note: use it only if your subgraph is not created in the local Graph node.
-
-Deploy the subgraph to your local Graph Node. `yarn deploy-local`.
