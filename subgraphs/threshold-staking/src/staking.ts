@@ -244,8 +244,8 @@ export function handleAuthorizationDecreaseRequested(
   const toAmount = event.params.toAmount
   const fromAmount = event.params.fromAmount
 
-  const id = `${stakingProvider.toHexString()}-${appAddress.toHexString()}`
-  const appAuthorization = AppAuthorization.load(id)
+  const appAuthId = `${stakingProvider.toHexString()}-${appAddress.toHexString()}`
+  const appAuthorization = AppAuthorization.load(appAuthId)
 
   if (!appAuthorization) {
     return
@@ -253,6 +253,21 @@ export function handleAuthorizationDecreaseRequested(
 
   appAuthorization.amountDeauthorizing = fromAmount.minus(toAmount)
   appAuthorization.save()
+
+  const appAuthHistoryId =
+    stakingProvider.toHexString() +
+    "-" +
+    appAddress.toHexString() +
+    "-" +
+    event.block.number.toString()
+  const appAuthHistory = new AppAuthHistory(appAuthHistoryId)
+  appAuthHistory.appAuthorization = appAuthId
+  appAuthHistory.amount = toAmount
+  appAuthHistory.eventAmount = event.params.fromAmount.minus(toAmount)
+  appAuthHistory.eventType = "AuthorizationDecreaseRequested"
+  appAuthHistory.blockNumber = event.block.number
+  appAuthHistory.timestamp = event.block.timestamp
+  appAuthHistory.save()
 }
 
 export function handleAuthorizationInvoluntaryDecreased(
