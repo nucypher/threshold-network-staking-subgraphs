@@ -1,13 +1,10 @@
 {
-  "name": "threshold-staking-polygon",
+  "name": "taco-operators-subgraph",
   "license": "GPL-3.0-or-later",
   "scripts": {
     "codegen": "graph codegen",
     "build": "graph build",
-    "deploy": "graph deploy --node https://api.studio.thegraph.com/deploy/ threshold-staking-polygon",
-    "create-local": "graph create --node http://localhost:8020/ threshold-staking-polygon",
-    "remove-local": "graph remove --node http://localhost:8020/ threshold-staking-polygon",
-    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 threshold-staking-polygon",
+    "deploy": "graph deploy --node https://api.studio.thegraph.com/deploy/ taco-operators",
     "test": "yarn codegen && yarn build && graph test -d"
   },
   "dependencies": {
