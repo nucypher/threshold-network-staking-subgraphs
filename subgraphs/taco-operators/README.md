@@ -11,7 +11,10 @@ have been confirmed and when.
 
 ## Query URL
 
-None.
+Currently deployed on The Graph Studio.
+`https://api.studio.thegraph.com/query/24143/threshold-staking-polygon/0.1.1`
+
+Deployment account: 0x18430da2787c9c50722ffc0b9bcc1cab132c0679
 
 ## Developing and deploying
 
