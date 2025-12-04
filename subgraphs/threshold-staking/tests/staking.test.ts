@@ -663,6 +663,44 @@ describe("Application authorization history", () => {
     )
   })
 
+  test("a new AppAuthHistory is created with AuthorizationDecreaseRequested event", () => {
+    const stakingProvider = Address.fromString(testStProvAddr)
+    const tacoApp = Address.fromString(tacoAppAddr)
+    const fromAmount = BigInt.fromI32(500)
+    const toAmount = BigInt.fromI32(100)
+
+    const authorizationDecreaseApprovedEvent =
+      createAuthorizationDecreaseApprovedEvent(
+        stakingProvider,
+        tacoApp,
+        fromAmount,
+        toAmount
+      )
+    handleAuthorizationDecreaseApproved(authorizationDecreaseApprovedEvent)
+
+    const id =
+      stakingProvider.toHexString() + "-" + tacoApp.toHexString() + "-1"
+    assert.fieldEquals(
+      "AppAuthHistory",
+      id,
+      "appAuthorization",
+      stakingProvider.toHexString() + "-" + tacoApp.toHexString()
+    )
+    assert.fieldEquals("AppAuthHistory", id, "amount", toAmount.toString())
+    assert.fieldEquals(
+      "AppAuthHistory",
+      id,
+      "eventAmount",
+      fromAmount.minus(toAmount).toString()
+    )
+    assert.fieldEquals(
+      "AppAuthHistory",
+      id,
+      "eventType",
+      "AuthorizationDecreaseApproved"
+    )
+  })
+
   test("a new AppAuthHistory is created with AuthorizationInvoluntaryDecreased event", () => {
     const stakingProvider = Address.fromString(testStProvAddr)
     const tacoApp = Address.fromString(tacoAppAddr)
