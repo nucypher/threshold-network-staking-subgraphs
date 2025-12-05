@@ -198,6 +198,7 @@ export function handleAuthorizationIncreased(
   appAuthHistory.eventAmount = toAmount.minus(event.params.fromAmount)
   appAuthHistory.eventType = "AuthorizationIncreased"
   appAuthHistory.blockNumber = event.block.number
+  appAuthHistory.transactionHash = event.transaction.hash
   appAuthHistory.timestamp = event.block.timestamp
   appAuthHistory.save()
 }
@@ -232,6 +233,7 @@ export function handleAuthorizationDecreaseApproved(
   appAuthHistory.eventAmount = event.params.fromAmount.minus(toAmount)
   appAuthHistory.eventType = "AuthorizationDecreaseApproved"
   appAuthHistory.blockNumber = event.block.number
+  appAuthHistory.transactionHash = event.transaction.hash
   appAuthHistory.timestamp = event.block.timestamp
   appAuthHistory.save()
 }
@@ -266,6 +268,7 @@ export function handleAuthorizationDecreaseRequested(
   appAuthHistory.eventAmount = event.params.fromAmount.minus(toAmount)
   appAuthHistory.eventType = "AuthorizationDecreaseRequested"
   appAuthHistory.blockNumber = event.block.number
+  appAuthHistory.transactionHash = event.transaction.hash
   appAuthHistory.timestamp = event.block.timestamp
   appAuthHistory.save()
 }
@@ -302,6 +305,7 @@ export function handleAuthorizationInvoluntaryDecreased(
   appAuthHistory.eventAmount = event.params.fromAmount.minus(toAmount)
   appAuthHistory.eventType = "AuthorizationInvoluntaryDecreased"
   appAuthHistory.blockNumber = event.block.number
+  appAuthHistory.transactionHash = event.transaction.hash
   appAuthHistory.timestamp = event.block.timestamp
   appAuthHistory.save()
 }
