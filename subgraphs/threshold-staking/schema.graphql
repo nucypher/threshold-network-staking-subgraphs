@@ -68,6 +68,8 @@ type AppAuthHistory @entity(immutable: true) {
   eventType: String!
   "Block in which this authorization update became effective"
   blockNumber: BigInt!
+  "Transaction hash of the authorization update"
+  transactionHash: Bytes!
   "Timestamp in which this authorization update became effective"
   timestamp: BigInt!
 }
