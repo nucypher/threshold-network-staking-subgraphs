@@ -19,7 +19,7 @@ DAOs, minimum stake requirements, and TACo operator information.
 
 ## Query URL
 
-`https://api.goldsky.com/api/public/project_cmgzo6cgq00lc5np2dwaycfdl/subgraphs/threshold-staking/0.0.2/gn`
+`https://api.goldsky.com/api/public/project_cmgzo6cgq00lc5np2dwaycfdl/subgraphs/threshold-staking/0.0.3/gn`
 
 ## Developing and deploying
 
